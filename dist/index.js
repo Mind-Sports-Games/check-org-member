@@ -31090,22 +31090,22 @@ const octokit = new github.getOctokit(token);
 main();
 
 async function main() {
-  const { data: orgs } = checkStatus(
-    await octokit.rest.orgs.listForUser({ username, per_page: 100 })
-  );
-
-  const isMember = orgs.some(({ login }) => login === organization);
-
-  core.setOutput("result", isMember ? "true" : "false");
-}
-
-function checkStatus(result) {
-  if (result.status >= 200 && result.status < 300) {
-    return result;
-  }
-
-  core.setFailed(`Received status ${result.status} from API.`);
-  process.exit();
+  const result = await octokit.request('GET /orgs/{org}/members/{username}', {
+      org: organization,
+      username: username,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
+    });
+  
+  if (result.status == 204) {
+    core.setOutput("result", "true");
+  } else if (result.status < 200 || result.status >= 300) {
+    core.setFailed(`Received status ${result.status} from API.`);
+    process.exit();
+  } else {
+    core.setOutput("result", "false");
+  }  
 }
 
 })();

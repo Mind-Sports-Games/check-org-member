@@ -1,6 +1,14 @@
 # check-org-member
 Check if actor belongs to our organisation to enable workflows
 
+## Setup guide used
+
+https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action
+
+## Build
+
+run `ncc build index.js --license licenses.txt`
+
 ## Usage
 
 An example workflow using the action:
