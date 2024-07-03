@@ -14,7 +14,8 @@ const octokit = new Octokit({
 main();
 
 async function main() {
-  const result = await octokit.request('GET /orgs/{org}/members/{username}', {
+  try {
+    await octokit.request('GET /orgs/{org}/members/{username}', {
       org: organization,
       username: username,
       headers: {
@@ -22,13 +23,20 @@ async function main() {
         'Accept': 'application/vnd.github+json'
       }
     });
-  
-  if (result.status == 204) {
+
+    console.log("User belongs to org");
     core.setOutput("result", "true");
-  } else if (result.status == 302 || result.status == 404) {
-    core.setOutput("result", "false");
-  } else {
-    core.setFailed(`Received status ${result.status} from API.`);
-    process.exit();
-  }
+
+  } catch (error) {
+    if (error.status === 302) {
+      console.log("User does not belong to org");
+      core.setOutput("result", "false");  
+    } else if (error.status === 404){
+      console.log("Not found");
+      core.setOutput("result", "false");
+    } else {
+      core.setFailed(`Received status ${error.status} from API.`);
+      process.exit();
+    }
+  };
 }
