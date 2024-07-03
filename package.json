@@ -1,0 +1,24 @@
+{
+  "name": "check-org-member",
+  "version": "1.0.0",
+  "description": "Check if actor belongs to our organisation to enable workflows",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mind-Sports-Games/check-org-member.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mind-Sports-Games/check-org-member/issues"
+  },
+  "homepage": "https://github.com/Mind-Sports-Games/check-org-member#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0"
+  }
+}
