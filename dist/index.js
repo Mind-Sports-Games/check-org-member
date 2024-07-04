@@ -47378,15 +47378,12 @@ async function main() {
       }
     });
 
-    console.log("User belongs to org");
     core.setOutput("result", "true");
 
   } catch (error) {
     if (error.status === 302) {
-      console.log("User does not belong to org");
       core.setOutput("result", "false");  
     } else if (error.status === 404){
-      console.log("Not found");
       core.setOutput("result", "false");
     } else {
       core.setFailed(`Received status ${error.status} from API.`);

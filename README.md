@@ -26,14 +26,14 @@ jobs:
     steps:
       - name: Check if organization member
         id: check_org_member
-        uses: Mind-Sports-Games/check-org-member@1.0.0
+        uses: Mind-Sports-Games/check-org-member@master
         with:
           username: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Comment
-        if: |
-          ${{ steps.check_org_member.outputs.result == 'false' }}
-        run: echo User Does Not Belong to Mind-Sports-Games
-
+        if: ${{ steps.check_org_member.outputs.result == 'false' }}
+        run: |
+          echo User Does Not Belong to Mind-Sports-Games
+          exit 1
 ```
 

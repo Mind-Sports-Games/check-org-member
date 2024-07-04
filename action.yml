@@ -7,8 +7,8 @@ inputs:
     description: 'GitHub access token'
     required: true
 outputs:
-  result:
-    description: 'true of false'
+  result: # was check successful
+    description: 'true or false'
 runs:
   using: 'node20'
   main: 'dist/index.js'
